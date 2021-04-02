@@ -1,0 +1,24 @@
+{
+ "id": "980924",
+ "name": "Question Set 1",
+ "questions": [
+  {
+   "id": "0",
+   "source": "custom question",
+   "prompt": "Give an equivalent formula to \\(p \\rightarrow q\\)",
+   "input_method": "Blocks",
+   "correct_grammar": "prop",
+   "correct_formula": "-p < q",
+   "prohibited_formula": "p -> q"
+  },
+  {
+   "id": "1",
+   "source": "custom question",
+   "prompt": "Give an equivalent formula to \\(-(a + b)\\)",
+   "input_method": "Text",
+   "correct_grammar": "bool",
+   "correct_formula": "-a . -b",
+   "prohibited_formula": "-(a + b)"
+  }
+ ]
+}

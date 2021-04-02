@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Logic Learner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src = "jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="serverHandler.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        body {
+            font: 20px Montserrat, sans-serif;
+            line-height: 1.8;
+            color: #f5f6f7;
+        }
+        p {font-size: 16px;}
+        .margin {margin-bottom: 45px;}
+        .bg-1 {
+            background-color: #1abc9c; /* Green */
+            color: #ffffff;
+        }
+        .bg-2 {
+            background-color: #474e5d; /* Dark Blue */
+            color: #ffffff;
+        }
+        .bg-3 {
+            background-color: #ffffff; /* White */
+            color: #555555;
+        }
+        .bg-4 {
+            background-color: #2f2f2f; /* Black Gray */
+            color: #fff;
+        }
+        .container-fluid {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+        .navbar {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-size: 13px;
+            letter-spacing: 5px;
+        }
+        .navbar-nav  li a:hover {
+            color: #1abc9c !important;
+        }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: #1abc9c;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-4">
+    <meta charset="utf-8">
+    <div class="container">
+        <a class="navbar-brand" href="landing.html">\(Logic\longleftrightarrow Learner\)</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="landing.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="create_q.html">Create Question Set</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<container>
+    <div class="jumbotron d-flex align-items-center min-vh-100">
+        <div class="container text-center", style="color: black;font-size: 30px;">
+            <span id="prompt"></span>
+            <ul id="sortable" class="list-group list-group-horizontal-sm" style="margin-top:30px;">
+
+            </ul>
+            <button type="button" class="btn btn-outline-primary btn-lg" style="margin-top:30px;" onclick="submit()">Submit</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#sortable" ).sortable({
+                revert: true
+            });
+            $( "#draggable" ).draggable({
+                connectToSortable: "#sortable",
+                helper: "clone",
+                revert: "invalid"
+            });
+            $( "ul, li" ).disableSelection();
+        } );
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</container>
+<script type="text/javascript" src="attempt_q.js"></script>
+<script>
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    var questionSetJSON = JSON.parse(window.localStorage.getItem("currentSet"));
+    var questionSet = new AttemptingQuestionSet(questionSetJSON.id, questionSetJSON.name,
+        questionSetJSON.questions, questionSetJSON.currentQuestionIndex, questionSetJSON.score);
+    var question = questionSet.get_next_question();
+    var correct_formula = question["correct_formula"];
+    document.getElementById("prompt").innerHTML = question.prompt;
+
+    //\1F826
+    var symbols = shuffle(question['correct_formula'].replaceAll("<->", "|").replaceAll("->", "@").replaceAll("<-","!").replaceAll(" ", "")).split("");
+
+    while (symbols.indexOf("@") !== -1) {
+        symbols[symbols.indexOf("@")] = "\\rightarrow";
+    }
+
+    while (symbols.indexOf("!") !== -1) {
+        symbols[symbols.indexOf("!")] = "\\leftarrow";
+    }
+
+    while (symbols.indexOf("|") !== -1) {
+        symbols[symbols.indexOf("|")] = "\\longleftrightarrow";
+    }
+
+    while (symbols.indexOf("^") !== -1) {
+        symbols[symbols.indexOf("^")] = "\\land";
+    }
+
+    while (symbols.indexOf("<") !== -1) {
+        symbols[symbols.indexOf("<")] = "\\lor";
+    }
+
+    if (question['correct_grammar'] === "prop") {
+        while (symbols.indexOf("-") !== -1) {
+            symbols[symbols.indexOf("-")] = "\\neg";
+        }
+    }
+
+    while (symbols.indexOf(".") !== -1) {
+        symbols[symbols.indexOf(".")] = "\\cdot";
+    }
+
+    $("#sortable").sortable();
+    for (var symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
+        $("#sortable").append('<li class="list-group-item flex-fill" style = "color: black" id = "' + symbols[symbolIndex] + '">\\(' + symbols[symbolIndex] +'\\)</li>');
+    }
+
+    function submit(){
+        var answer = $("#sortable").sortable('toArray');
+
+        while (answer.indexOf("\\rightarrow") !== -1) {
+            answer[answer.indexOf("\\rightarrow")] = "->";
+        }
+
+        while (answer.indexOf("\\leftarrow") !== -1) {
+            answer[answer.indexOf("\\leftarrow")] = "<-";
+        }
+
+        while (answer.indexOf("\\longleftrightarrow") !== -1) {
+            answer[answer.indexOf("\\longleftrightarrow")] = "<->";
+        }
+
+        while (answer.indexOf("\\land") !== -1) {
+            answer[answer.indexOf("\\land")] = "^";
+        }
+
+        while (answer.indexOf("\\lor") !== -1) {
+            answer[answer.indexOf("\\lor")] = "<";
+        }
+
+        while (answer.indexOf("\\neg") !== -1) {
+            answer[answer.indexOf("\\neg")] = "-";
+        }
+
+        while (answer.indexOf("\\cdot") !== -1) {
+            answer[answer.indexOf("\\cdot")] = ".";
+        }
+
+        var validate = getQuestionAnswer(questionSetJSON.id, question.id, answer.join(""))
+        if (validate === "Correct") {
+            questionSet.increase_score();
+        } else {
+            alert(validate);
+        }
+
+        if (questionSet.hasNextQuestion()){
+            localStorage.setItem("currentSet", questionSet.to_json_string());
+            if (questionSet.viewNextQuestion().input_method === "Text"){
+                window.location.href = "attempt_textq.html";
+            } else {
+                window.location.href = "attempt_blockq.html";
+            }
+        } else {
+            localStorage.removeItem("currentSet");
+            var score = {
+                "name": questionSet.name,
+                "code": questionSet.id,
+                "score": questionSet.score + "/" + questionSet.questions.length,
+            };
+            localStorage.setItem(new Date().getTime(), JSON.stringify(score));
+            window.location.href = "landing.html";
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

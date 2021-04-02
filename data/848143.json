@@ -1,0 +1,51 @@
+{
+ "id": "848143",
+ "name": "Random Question Set",
+ "questions": [
+  {
+   "id": "0",
+   "source": "randomly generated",
+   "prompt": "Give an equivalent propositional logic formula to \\(\\neg (\\neg (p \\longleftrightarrow p) \\lor p)\\)",
+   "input_method": "Text",
+   "correct_grammar": "prop",
+   "correct_formula": "-(-(p <-> p) < p)",
+   "prohibited_formula": "-(-(p <-> p) < p)"
+  },
+  {
+   "id": "1",
+   "source": "randomly generated",
+   "prompt": "Give an equivalent boolean algebra formula to \\(-((d + b) + c)\\)",
+   "input_method": "Text",
+   "correct_grammar": "bool",
+   "correct_formula": "-((d + b) + c)",
+   "prohibited_formula": "-((d + b) + c)"
+  },
+  {
+   "id": "2",
+   "source": "randomly generated",
+   "prompt": "Translate the following sentence into a propositional logic formula: Let \\(q\\) = it is snowing, \\(r\\) = it is cold. (it is cold) or ((it is snowing) and (it is cold))",
+   "input_method": "Text",
+   "correct_grammar": "prop",
+   "correct_formula": "r < q ^ r",
+   "prohibited_formula": ""
+  },
+  {
+   "id": "3",
+   "source": "randomly generated",
+   "prompt": "Give a propositional logic formula for the following truth table:\n<table class ='table'><thead><tr><th scope='col'>\\(r\\)</th><th scope='col'>\\(q\\)</th><th scope='col'>\\(p\\)</th><th scope='col'>\\(?\\)</th></tr></thead><tbody><tr><td>\\(1\\)</td><td>\\(1\\)</td><td>\\(1\\)</td><td>\\(1\\)</td></tr><tr><td>\\(0\\)</td><td>\\(1\\)</td><td>\\(0\\)</td><td>\\(0\\)</td></tr><tr><td>\\(1\\)</td><td>\\(0\\)</td><td>\\(0\\)</td><td>\\(0\\)</td></tr><tr><td>\\(0\\)</td><td>\\(0\\)</td><td>\\(0\\)</td><td>\\(0\\)</td></tr><tr><td>\\(1\\)</td><td>\\(1\\)</td><td>\\(0\\)</td><td>\\(0\\)</td></tr><tr><td>\\(1\\)</td><td>\\(0\\)</td><td>\\(1\\)</td><td>\\(0\\)</td></tr><tr><td>\\(0\\)</td><td>\\(1\\)</td><td>\\(1\\)</td><td>\\(0\\)</td></tr><tr><td>\\(0\\)</td><td>\\(0\\)</td><td>\\(1\\)</td><td>\\(0\\)</td></tr></tbody></table>",
+   "input_method": "Blocks",
+   "correct_grammar": "prop",
+   "correct_formula": "((p ^ q) ^ r)",
+   "prohibited_formula": ""
+  },
+  {
+   "id": "4",
+   "source": "randomly generated",
+   "prompt": "Translate the following sentence into a boolean algebra formula: Let \\(c\\) = it is dark, \\(b\\) = it is night. (it is not that ((it is dark) or (it is dark))) or (it is night)",
+   "input_method": "Blocks",
+   "correct_grammar": "bool",
+   "correct_formula": "(-(c + c) + b)",
+   "prohibited_formula": ""
+  }
+ ]
+}

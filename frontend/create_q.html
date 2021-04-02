@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Logic Learner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font: 20px Montserrat, sans-serif;
+            line-height: 1.8;
+            color: #000000;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .margin {
+            margin-bottom: 45px;
+        }
+
+        .bg-1 {
+            background-color: #1abc9c; /* Green */
+            color: #ffffff;
+        }
+
+        .bg-2 {
+            background-color: #474e5d; /* Dark Blue */
+            color: #ffffff;
+        }
+
+        .bg-3 {
+            background-color: #ffffff; /* White */
+            color: #555555;
+        }
+
+        .bg-4 {
+            background-color: #2f2f2f; /* Black Gray */
+            color: #fff;
+        }
+
+        .container-fluid {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        .navbar {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-size: 13px;
+            letter-spacing: 5px;
+        }
+
+        .navbar-nav li a:hover {
+            color: #1abc9c !important;
+        }
+
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: #1abc9c;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default bg-4">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!--<span class="icon-bar"></span>-->
+            </button>
+            <a class="navbar-brand" href="landing.html">\(Logic\longleftrightarrow Learner\)</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron d-flex align-items-center min-vh-100">
+    <div class="container text-center" , style="font-size: 18px;">
+        <input type="text" class="form-control" placeholder="Question set title" id="title" aria-label="Username"
+               aria-describedby="basic-addon1">
+        <br/>
+        <input type="text" class="form-control" placeholder="Question prompt" id="prompt" aria-label="Username"
+               aria-describedby="basic-addon1">
+        Grammar: <select class="form-select" id="grammar" aria-label="Default select example">
+            <option value="prop">Propositional</option>
+            <option value="bool">Boolean Algebra</option>
+            <option value="dnf">Disjunctive Normal Form</option>
+        </select>
+        <input type="text" class="form-control" placeholder="Correct formula" id="formula" aria-label="Username"
+               aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="(Optional) Prohibited formula" id="p_formula"
+               aria-label="Username" aria-describedby="basic-addon1">
+        Input method: <select class="form-select" style="margin-top:10px;" id="input_method" aria-label="Default select example">
+            <option value="Blocks">Blocks</option>
+            <option value="Text">Text</option>
+        </select>
+        <button type="button" class="btn btn-success btn-lg" style="margin-top:10px;" id="add_q" onclick="add_q();">Add
+            Question
+        </button>
+        <br/>
+        <button type="button" class="btn btn-success btn-lg" style="margin-top:30px;" id="submit_q"
+                onclick="submit_qs(document.getElementById('title').value);">Submit
+        </button>
+    </div>
+    <table class="table table-hover" id="questions" style="margin-left: 75px; margin-right: 75px">
+        <thead>
+        <tr>
+            <th scope="col" id="titles">Prompt</th>
+            <th scope="col" id="grammars">Grammar</th>
+            <th scope="col" id="inputs">Input</th>
+            <th scope="col" id="deletions">Delete</th>
+
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script src="question_creation.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#sortable").sortable({
+            revert: true
+        });
+        $("#draggable").draggable({
+            connectToSortable: "#sortable",
+            helper: "clone",
+            revert: "invalid"
+        });
+        $("ul, li").disableSelection();
+    });
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

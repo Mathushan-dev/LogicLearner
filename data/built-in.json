@@ -1,0 +1,33 @@
+{
+ "id": "built-in",
+ "name": "Built-in Questions",
+ "questions": [
+  {
+   "id": "0",
+   "source": "built-in",
+   "prompt": "Give a valid propositional logic formula with the variables \\(P, Q\\)",
+   "input_method": "Text",
+   "correct_grammar": "prop",
+   "correct_formula": "q -> (p -> q)",
+   "prohibited_formula": ""
+  },
+  {
+   "id": "1",
+   "source": "built-in",
+   "prompt": "\\(XOR\\) is defined by \\(a XOR b = (a + b) \\cdot -(a \\cdot b)\\). Give an equivalent formula to \\(a XOR b\\)",
+   "input_method": "Text",
+   "correct_grammar": "bool",
+   "correct_formula": "-((a.b)+(-a.-b))",
+   "prohibited_formula": "(a+b).-(a.b)"
+  },
+  {
+    "id": "2",
+    "source": "built-in",
+    "prompt": "Let \\(W\\) = 'I am warm', \\(S\\) = 'it is sunny', \\(I\\) = 'I am inside'. Translate the following sentence into a propositional logic formula: 'If it is sunny or I am inside, then I am warm.'",
+    "input_method": "Blocks",
+    "correct_grammar": "prop",
+    "correct_formula": "(s < i) -> w",
+    "prohibited_formula": ""
+   }
+ ]
+}
