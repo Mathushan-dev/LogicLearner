@@ -1,4 +1,4 @@
-#LogicLearner
+# LogicLearner
 LogicLearner is a Python repository aimed at teaching and practicing logic concepts, including propositional logic, Boolean algebra, and Disjunctive Normal Form (DNF). The repository contains functionalities for parsing logical expressions, evaluating their truth values, generating questions, and validating user-provided answers.
 
 File Structure
